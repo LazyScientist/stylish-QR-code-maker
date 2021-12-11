@@ -13,9 +13,9 @@ from kivy.uix.screenmanager import ScreenManager
 import random
 from MyQR import myqr
 import os
-import barcode
-import qrcode
-from barcode.writer import ImageWriter
+#import barcode
+#import qrcode
+#from barcode.writer import ImageWriter
 from PIL import Image
 from kivymd.uix.dialog import MDDialog
 
@@ -222,7 +222,7 @@ Builder.load_string('''
 				        	size_hint_y:0.1
 							Label:
 								text: "About Me"
-								font_name: "DancingScript-Regular.ttf"
+								#font_name: "DancingScript-Regular.ttf"
 								font_size:100
 								color:  app.theme_cls.primary_color		
 						BoxLayout:
@@ -237,7 +237,7 @@ Builder.load_string('''
 								Label:
 									text_size:  self.size
 									markup : True
-									font_name: "DancingScript-Regular.ttf"
+									#font_name: "DancingScript-Regular.ttf"
 									text: "I am A.I assistant based tool, which is made by [b]pankaj jangir[/b] to maximize your prodactivity and save time .   I can help you in programming , content writing , achiving daily goals , fitness and I can work as a keybord  to speed up typing, spacially in touch devices by using tools like file explorer, color picker, and many more"
 							
 							BoxLayout:
@@ -297,7 +297,7 @@ Builder.load_string('''
 						
 					Button:
 						id: bar_img
-						text:"image/21.gif"
+						text:"image/25.gif"
 						font_size:0
 						background_color: app.theme_cls.primary_color
 						Image:
@@ -316,6 +316,7 @@ Builder.load_string('''
 							text: "QR code"
 							icon: "qrcode"
 							text_color:app.theme_cls.accent_color
+							on_press: root.info = bar_input.text
 							on_release : sm.current = "screen1"
 						MDRectangleFlatIconButton:
 							text: "Wifi code"
@@ -336,12 +337,12 @@ Builder.load_string('''
 						MDRectangleFlatIconButton:
 							text: "Contact code"
 							icon: "qrcode"
-							text_color:app.theme_cls.accent_color
+							text_color:app.theme_cls.accent_color							
 							on_release : sm.current = "screen5"
 						MDRectangleFlatIconButton:
 							text: "Link QR code"
 							icon: "qrcode"
-							text_color:app.theme_cls.accent_color
+							text_color:app.theme_cls.accent_color							
 							on_release : sm.current = "screen6"
 					
 					
@@ -372,16 +373,11 @@ Builder.load_string('''
 							text: "Genrate"
 							pos_hint: {"center_x":0.5, "center_y": 0.1}
 							on_press: rename.text= "name_"+str(random.randint(1,100000))+".png"
-							on_press: root.make_qr(bar_input.text,image11,bar_img,save=False)
-							on_press: root.make_qr22(bar_input.text,image22,bar_img,save=False)
-							on_press: root.make_qr33(bar_input.text,image33,bar_img,save=False)
-							on_press: root.make_qr44(bar_input.text,image44,bar_img,save=False)
-							#########
-							
-							on_press: image11_btn.on_press =  root.make_qr(bar_input.text,image11,bar_img,save=False)
-							on_press: image22_btn.on_press =  root.make_qr22(bar_input.text,image22,bar_img,save=False)
-							on_press: image33_btn.on_press =  root.make_qr33(bar_input.text,image33,bar_img,save=False)
-							on_press: image44_btn.on_press =  root.make_qr44(bar_input.text,image44,bar_img,save=False)
+							on_press: root.info = bar_input.text
+							on_press: root.make_qr(image11,bar_img,save=False)
+							on_press: root.make_qr22(image22,bar_img,save=False)
+							on_press: root.make_qr33(image33,bar_img,save=False)
+							on_press: root.make_qr44(image44,bar_img,save=False)
 							
 						
 								
@@ -410,16 +406,11 @@ Builder.load_string('''
 									text: "Genrate"
 									pos_hint: {"center_x":0.5, "center_y":0.5}
 									on_press: rename.text= "name_"+str(random.randint(1,100000))+".png"
-									on_press: root.make_qr(bar11.text+bar12.text+bar13.text          ,image11,bar_img,save=False)
-									on_press: root.make_qr22(bar11.text+bar12.text+bar13.text     ,image22,bar_img,save=False)
-									on_press: root.make_qr33(bar11.text+bar12.text+bar13.text     ,image33,bar_img,save=False)
-									on_press: root.make_qr44(bar11.text+bar12.text+bar13.text    ,image44,bar_img,save=False)
-									
-									########
-									on_press: image11_btn.on_press =  root.make_qr(bar11.text+bar12.text+bar13.text          ,image11,bar_img,save=False)
-									on_press: image22_btn.on_press =  root.make_qr22(bar11.text+bar12.text+bar13.text     ,image22,bar_img,save=False)
-									on_press: image33_btn.on_press =  root.make_qr33(bar11.text+bar12.text+bar13.text     ,image33,bar_img,save=False)
-									on_press: image44_btn.on_press =  root.make_qr44(bar11.text+bar12.text+bar13.text    ,image44,bar_img,save=False)
+									on_press: root.info = bar11.text+bar12.text+bar13.text
+									on_press: root.make_qr(image11,bar_img,save=False)
+									on_press: root.make_qr22(image22,bar_img,save=False)
+									on_press: root.make_qr33(image33,bar_img,save=False)
+									on_press: root.make_qr44(image44,bar_img,save=False)
 									
 									
 								
@@ -457,16 +448,13 @@ Builder.load_string('''
 									text: "Genrate"
 									pos_hint: {"center_x":0.5, "center_y":0.5}
 									on_press: rename.text= "name_"+str(random.randint(1,100000))+".png"
-									on_press: root.make_qr(bar21.text+bar22.text+bar23.text+bar24.text+bar25.text     ,image11,bar_img,save=False)
-									on_press: root.make_qr22(bar21.text+bar22.text+bar23.text+bar24.text+bar25.text   ,image22,bar_img,save=False)
-									on_press: root.make_qr33(bar21.text+bar22.text+bar23.text+bar24.text+bar25.text     ,image33,bar_img,save=False)
-									on_press: root.make_qr44(bar_input.text,image44,bar_img,save=False)
-									#######
+									on_press: root.info = bar21.text+bar22.text+bar23.text+bar24.text+bar25.text
+									on_press: root.make_qr(image11,bar_img,save=False)
+									on_press: root.make_qr22(image22,bar_img,save=False)
+									on_press: root.make_qr33(image33,bar_img,save=False)
+									on_press: root.make_qr44(image44,bar_img,save=False)
+					
 									
-									on_press: image11_btn.on_press =  root.make_qr(bar21.text+bar22.text+bar23.text+bar24.text+bar25.text     ,image11,bar_img,save=False)
-									on_press: image22_btn.on_press = root.make_qr22(bar21.text+bar22.text+bar23.text+bar24.text+bar25.text   ,image22,bar_img,save=False)
-									on_press: image33_btn.on_press =  root.make_qr33(bar21.text+bar22.text+bar23.text+bar24.text+bar25.text     ,image33,bar_img,save=False)
-									on_press: image44_btn.on_press =  root.make_qr44(bar_input.text,image44,bar_img,save=False)
 									
 				
 							
@@ -518,17 +506,12 @@ Builder.load_string('''
 									text: "Genrate"
 									pos_hint: {"center_x":0.5, "center_y":0.5}
 									on_press: rename.text= "name_"+str(random.randint(1,100000))+".png"
-									on_press: root.make_qr(bar31.text+bar32.text+bar33.text + bar34.text+bar35.text+bar36.text      ,image11,bar_img,save=False)
-									on_press: root.make_qr22(bar31.text+bar32.text+bar33.text + bar34.text+bar35.text+bar36.text      ,image22,bar_img,save=False)
-									on_press: root.make_qr33(bar31.text+bar32.text+bar33.text + bar34.text+bar35.text+bar36.text        ,image33,bar_img,save=False)
-									on_press: root.make_qr44(bar_input.text,image44,bar_img,save=False)
+									on_press: root.info = bar31.text+bar32.text+bar33.text + bar34.text+bar35.text+bar36.text
+									on_press: root.make_qr(image11,bar_img,save=False)
+									on_press: root.make_qr22(image22,bar_img,save=False)
+									on_press: root.make_qr33(image33,bar_img,save=False)
+									on_press: root.make_qr44(image44,bar_img,save=False)
 									
-									
-									####
-									on_press: image11_btn.on_press =  root.make_qr(bar31.text+bar32.text+bar33.text + bar34.text+bar35.text+bar36.text      ,image11,bar_img,save=False)
-									on_press: image22_btn.on_press =  root.make_qr22(bar31.text+bar32.text+bar33.text + bar34.text+bar35.text+bar36.text      ,image22,bar_img,save=False)
-									on_press: image33_btn.on_press =   root.make_qr33(bar31.text+bar32.text+bar33.text + bar34.text+bar35.text+bar36.text        ,image33,bar_img,save=False)
-									on_press: image44_btn.on_press =   root.make_qr44(bar_input.text,image44,bar_img,save=False)
 									
 													
 					Screen:
@@ -552,18 +535,11 @@ Builder.load_string('''
 									text: "Genrate"
 									pos_hint: {"center_x":0.5, "center_y":0.5}
 									on_press: rename.text= "name_"+str(random.randint(1,100000))+".png"
-									on_press: root.make_qr(bar_input.text,image11,bar_img,save=False)
-									on_press: root.make_qr22(bar_input.text,image22,bar_img,save=False)
-									on_press: root.make_qr33(bar_input.text,image33,bar_img,save=False)
-									on_press: root.make_qr44(bar_input.text,image44,bar_img,save=False)
-									
-									######
-									on_press: image11_btn.on_press =   root.make_qr(bar_input.text,image11,bar_img,save=False)
-									on_press: image22_btn.on_press =   root.make_qr22(bar_input.text,image22,bar_img,save=False)
-									on_press: image33_btn.on_press =   root.make_qr33(bar_input.text,image33,bar_img,save=False)
-									on_press: image44_btn.on_press =   root.make_qr44(bar_input.text,image44,bar_img,save=False)
-									
-									
+									on_press: root.info = bar_input.text
+									on_press: root.make_qr(image11,bar_img,save=False)
+									on_press: root.make_qr22(image22,bar_img,save=False)
+									on_press: root.make_qr33(image33,bar_img,save=False)
+									on_press: root.make_qr44(image44,bar_img,save=False)
 								
 						
 					Screen:
@@ -579,17 +555,12 @@ Builder.load_string('''
 							text: "Genrate"
 							pos_hint: {"center_x":0.5, "center_y":0.1}
 							on_press: rename.text= "name_"+str(random.randint(1,100000))+".png"
-							on_press: root.make_qr(link_input.text,image11,bar_img,save=False)
-							#on_press: root.make_qr22(link_input.text,image22,bar_img,save=False)
-							#on_press: root.make_qr33(link_input.text,image33,bar_img,save=False)
-							on_press: root.make_qr44(bar_input.text,image44,bar_img,save=False)
+							on_press: root.info = link_input.text
+							on_press: root.make_qr(image11,bar_img,save=False)
+							on_press: root.make_qr22(image22,bar_img,save=False)
+							on_press: root.make_qr33(image33,bar_img,save=False)
+							on_press: root.make_qr44(image44,bar_img,save=False)
 							
-							#######
-							
-							on_press: image11_btn.on_press =   root.make_qr(link_input.text,image11,bar_img,save=False)
-							on_press: image22_btn.on_press =   root.make_qr22(link_input.text,image22,bar_img,save=False)
-							on_press: image33_btn.on_press =   root.make_qr33(link_input.text,image33,bar_img,save=False)
-							on_press: image44_btn.on_press =   root.make_qr44(bar_input.text,image44,bar_img,save=False)
 						
 									
 
@@ -609,14 +580,17 @@ Builder.load_string('''
 			BoxLayout:
 				size_hint_y:0.4
 				orientation: "vertical"
-
 				ScrollView:
 					bar_width : 0
 					BoxLayout:
-						size_hint_x: 2
+						size_hint_x: None
+						width: card.width*25
 						spacing:30
+						padding: 20
 						MDCard:
-							size_hint: 0.8,0.8
+							id: card
+							size_hint_x: None
+							width: self.height-100
 					        elevation: 10
 					        border_radius: 50
 							radius: [50]
@@ -629,11 +603,13 @@ Builder.load_string('''
 								MDFloatingActionButton:
 									id: image11_btn
 									icon: "content-save"
-									on_press: root.make_qr(bar_input.text,image11,bar_img,save=True)
+									on_press: root.make_qr(image11,bar_img,save=True)
 									pos_hint:{"center_x":-0.5,"center_y":0}
 														
 						MDCard:
-							size_hint: 0.8,0.8
+							size_hint_x: None
+							width: self.heightsize_hint_x: None
+							width: self.height-100
 					        elevation: 10
 					        border_radius: 50
 							radius: [50]
@@ -646,12 +622,13 @@ Builder.load_string('''
 								MDFloatingActionButton:
 									id: image22_btn
 									icon: "content-save"
-									on_press: root.make_qr22(bar_input.text,image22,bar_img,save=True)
+									on_press: root.make_qr22(image22,bar_img,save=True)
 									pos_hint:{"center_x":-0.5,"center_y":0}
 								
 							
 						MDCard:
-							size_hint: 0.8,0.8
+							size_hint_x: None
+							width: self.height-100
 					        elevation: 10
 					        border_radius: 50
 							radius: [50]
@@ -664,14 +641,15 @@ Builder.load_string('''
 								MDFloatingActionButton:
 									id: image33_btn
 									icon: "content-save"
-									on_press: root.make_qr33(bar_input.text,image33,bar_img,save=True)
+									on_press: root.make_qr33(image33,bar_img,save=True)
 									pos_hint:{"center_x":-0.5,"center_y":0}
 						
 							
 								
 										
 						MDCard:
-							size_hint: 0.8,0.8
+							size_hint_x: None
+							width: self.height-100
 					        elevation: 10
 					        border_radius: 50
 							radius: [50]
@@ -684,13 +662,350 @@ Builder.load_string('''
 								MDFloatingActionButton:
 									id: image44_btn
 									icon: "content-save"
-									on_press: root.make_qr44(bar_input.text,image44,bar_img,save=True)
+									on_press: root.make_qr44(image44,bar_img,save=True)
 									pos_hint:{"center_x":-0.5,"center_y":0}
 							
 										
+						###################
+						###################
+						###################
+						
+			
+										
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/1.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/1.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+							
+									
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/2.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/2.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/3.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/3.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/4.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/4.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/5.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/5.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/6.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/6.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/7.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/7.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/8.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/8.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/9.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/9.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/10.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/10.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height -100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/11.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/11.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height -100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/12.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/12.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height -100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/13.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/13.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height -100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/14.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/14.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height -100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/15.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/15.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height -100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/16.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/16.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height -100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/17.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/17.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+								
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/18.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/18.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
 														
-	
+					
 				
+						MDCard:
+							size_hint_x: None
+							width: self.height-100
+					        elevation: 10
+					        border_radius: 50
+							radius: [50]
+					        pos_hint: {"center_x":0.5, "center_y":0.5}
+							md_bg_color: app.theme_cls.primary_color					
+							Image:
+								source: "image/demo_image/19.gif"
+							RelativeLayout:
+								size_hint:0,0
+								MDFloatingActionButton:
+									icon: "content-save"
+									on_press: root.make_qr101("image/19.gif")
+									pos_hint:{"center_x":-0.5,"center_y":0}
+												
+			
+
+																										
+
+				
+			
+									
+																																	
 										
 				
 				
@@ -706,6 +1021,7 @@ Builder.load_string('''
 
 
 class xp(BoxLayout):
+	info = StringProperty("")
 	def __init__(self, **kwargs):
 		super().__init__(**kwargs)
 		#textarea = ObjectProperty(None)
@@ -750,9 +1066,9 @@ class xp(BoxLayout):
 #		except:
 #			pass
 
-	def  make_qr(self,text,image,bar_img,save):
+	def  make_qr(self,image,bar_img,save):
 		qr_big = qrcode.QRCode(error_correction= qrcode.constants.ERROR_CORRECT_H)
-		qr_big.add_data(text)
+		qr_big.add_data(self.info)
 		qr_big.make()
 		img_qr_big = qr_big.make_image(fill_color= self.line_color, back_color= self.back_color).convert("RGB")
 		img_qr_big.save(self.rename.text+"nn.png")
@@ -768,11 +1084,11 @@ class xp(BoxLayout):
 			
 
 
-	def  make_qr22(self,text,image,bar_img,save):
+	def  make_qr22(self,image,bar_img,save):
 		logo = Image.open(bar_img.text)
 		logo = logo.resize((60, 60), Image.ANTIALIAS)
 		qr_big = qrcode.QRCode(error_correction= qrcode.constants.ERROR_CORRECT_H)
-		qr_big.add_data(text)
+		qr_big.add_data(self.info)
 		qr_big.make()
 		img_qr_big = qr_big.make_image(fill_color= self.line_color, back_color= self.back_color).convert("RGB")
 		pos= ((img_qr_big.size[0] - logo.size[0])  // 2 , (img_qr_big.size[1] - logo.size[1])  // 2)
@@ -793,8 +1109,8 @@ class xp(BoxLayout):
 
 
 
-	def  make_qr33(self,text,image,bar_img,save):
-		version,level,qr_name = myqr.run(words=text,level="H",picture=bar_img.text , colorized=False , save_name=self.rename.text+"bk.gif",  save_dir=os.getcwd())
+	def  make_qr33(self,image,bar_img,save):
+		version,level,qr_name = myqr.run(words=self.info,level="H",picture=bar_img.text , colorized=False , save_name=self.rename.text+"bk.gif",  save_dir=os.getcwd())
 		image.source = self.rename.text+"bk.gif"
 		if save :
 			pass
@@ -807,8 +1123,8 @@ class xp(BoxLayout):
 
 
 
-	def  make_qr44(self,text,image,bar_img,save):
-		version,level,qr_name = myqr.run(words=text,level="H",picture=bar_img.text , colorized=True , save_name=self.rename.text+".gif",  save_dir=os.getcwd())
+	def  make_qr44(self,image,bar_img,save):
+		version,level,qr_name = myqr.run(words=self.info,level="H",picture=bar_img.text , colorized=True , save_name=self.rename.text+".gif",  save_dir=os.getcwd())
 		image.source = self.rename.text+".gif"
 		if save :
 			pass
@@ -818,6 +1134,19 @@ class xp(BoxLayout):
 				os.remove(self.rename.text+".gif")
 			except:
 				pass
+
+
+
+
+
+	def  make_qr101(self,bar_img):
+		version,level,qr_name = myqr.run(words=self.info ,level="H",picture=bar_img , colorized=True , save_name=self.rename.text+".gif",  save_dir=os.getcwd())
+		#image.source = self.rename.text+".gif"
+
+
+
+
+
 
 
 
